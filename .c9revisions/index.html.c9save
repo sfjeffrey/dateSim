@@ -1,0 +1,4 @@
+{"ts":1379418413094,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
+{"contributors":[],"silentsave":false,"ts":1379418510229,"patch":[[{"diffs":[[1,"<html>\n    <head>\n        \n    </head>\n    <body>\n        \n    </body>\n    \n</html>"]],"start1":0,"start2":0,"length1":0,"length2":83}]],"length":83,"saved":false}
+{"ts":1379419524444,"patch":[[{"diffs":[[0,"ad>\n        "],[1,"<script type=\"application/javascript\" src=\"playerClass.js\"></script>"],[0,"\n    </head>"]],"start1":14,"start2":14,"length1":24,"length2":92}]],"length":151,"saved":false}
+{"ts":1379419962124,"patch":[[{"diffs":[[0,"script>\n"],[1,"        <script type=\"application/javascript\" src=\"jQuery.js\"></script>\n"],[0,"    </he"]],"start1":87,"start2":87,"length1":16,"length2":88}]],"length":223,"saved":false}

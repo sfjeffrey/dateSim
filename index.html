@@ -1,0 +1,33 @@
+<HTML>
+<head>
+
+<script type="application/javascript">
+    String.prototype.contains = function(string) {
+        if (this.search(string) >= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+</script>
+    <script type="application/javascript" src="scripts/stageControl.js"     ></script>
+
+    <link rel="stylesheet" type="text/css" href="gameStyle.css">
+</head>
+
+<body>
+<div class="clockBox"><span id="clock"></span><span id="calender"></span></div>
+<div class="button" id="backpack">Backpack</div>
+<div class="button" id="objectives">Objectives</div>
+<div class="button" id="wait">Wait</div>
+<div class="button" id="sleep">Sleep</div>
+<div class="textBox"></div>
+<div class="buttonBox">
+</div>
+
+
+</body>
+
+
+</html>
