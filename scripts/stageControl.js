@@ -25,12 +25,7 @@ stage.setChoices = function (choices, func){
         $('.buttonBox').append('<div class="button" id="'+choices[i]+'">'+choices[i]+'</div>');
         $('#'+choices[i]).data('value', choices[i]);
         $('#'+choices[i]).click(func);
-        if (WorldList.base[choices[i]] instanceof BasicItem) {
-            $('#'+choices[i]).html( WorldList.base[choices[i]].name);
-        }
-        if (characters[choices[i]] instanceof Character) {
-            $('#'+choices[i]).html( characters[choices[i]].name);
-        }
+
     }
 };
 
@@ -41,18 +36,10 @@ stage.addChoices = function (choices, func, value){
     value = value || choices;
     var name = choices;
     choices = choices.toString();
-    while ( typeof name === 'string' && name.contains(' ')) {
-        name = name.replace(' ','_');
-    }
+    name.replace(/ /g,'_');
     $('.buttonBox').append('<div class="button" id="'+name+'">'+choices+'</div>');
     $('#'+name).data('value', value);
     $('#'+name).click(func);
-    if (WorldList.base[choices] instanceof BasicItem) {
-        $('#'+choices).html( WorldList.base[choices].name);
-    }
-    if (characters[choices] instanceof Character) {
-        $('#'+choices).html( characters[choices].name);
-    }
 };
 
 //function adds messages to the text box.
@@ -65,9 +52,12 @@ stage.gameMessage = function (string){
 
 //function sets the buttons to game mode buttons
 stage.gameModeButtons = function(){
-    gameState.setState('mapState');
     $('.buttonBox').empty();
-    mapList.worldMap.printMap();
+    stage.addChoices('People',function() {
+        player.location.getPeople();
+        stage.addChoices('Return',stage.gameModeButtons);
+    });
+    
 };
 
 //function sends a game message revealing the player's items and cash
@@ -83,66 +73,39 @@ stage.backpack = function(){
 
 //function adds buttons to the stage area
 stage.addButtons = function (choices, func, value, x, y){
+    choices = choices || 'Back';
     value = value || choices;
-    var name = choices;
+    var name = choices || 'Back';
     choices = choices.toString().replace(/ /g,'_');
     
-    $('.textBox').append('<div class="button" id="'+name+'">'+choices+'</div>').css('left',x).css('top',y);
-    $('#'+name).data('value', value);
+    $('.textBox').append('<div class="button" id="'+name+'">'+choices+'</div>');
+    
+    $('#'+name).data('value', value).css('position','absolute');
+    $('#'+name).data('value', value).css('left',x);
+    $('#'+name).data('value', value).css('top',y);
     $('#'+name).click(func);
-    if (WorldList.base[choices] instanceof BasicItem) {
-        $('#'+choices).html( WorldList.base[choices].name);
-    }
-    if (characters[choices] instanceof Character) {
-        $('#'+choices).html( characters[choices].name);
-    }
 };
 
 
-stage.getObjectives = function () {
-    gameState.checkObjectives();
-};
 
 stage.waitButton = function () {
-    gameState.doAnything = true;
-    gameState.forwardTime();
-    stage.gameModeButtons();
+    //needs update
 };
 
-stage.sleepButton = function () {
-    for (var i=0; i < 8; ++i ){
-
-        gameState.doAnything = true;
-        gameState.forwardTime();
-        if (gameState.hour === 0) { break;}
-    }
-    stage.gameModeButtons();
-};
 
 stage.setClock = function (hour) {
-    var minute = (Math.floor((hour - Math.floor(hour)) * 60)).toString();
-    if (minute.length < 2) {
-        minute = '0' + minute;
-    }
-    var time = (Math.floor(hour) + ':' + minute);
-    $('#clock').html(time);
-    $('#calender').html(' Day '+gameState.day);
+    //needs update
 };
 
-stage.gameOver = function() {
-    stage.setChoices();
-    $('.textBox').empty();
-    alert('Game Over');
-    
-};
 //****************************************************************************
 //document ready function
 //****************************************************************************
 $(document).ready(function(){
-    stage.gameModeButtons();
     $('#backpack').click(stage.backpack);
     $('#objectives').click(stage.getObjectives);
     $('#wait').click(stage.waitButton);
     $('#sleep').click(stage.sleepButton);
+    hubWorld.enter();
+    stage.gameModeButtons();
         
-});s
+});
