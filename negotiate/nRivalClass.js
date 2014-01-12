@@ -23,6 +23,9 @@ var Rival = function(obj) {
 
 //returns a value for the response the rival has to the proposed offer
 Rival.prototype.getAgreement = function (offer,target) {
+    if (isNaN(offer)) {
+        offer = '1.0';
+    }
     console.log('offer: '+offer);
     console.log('target: '+target);
     offer = parseFloat(offer,10);

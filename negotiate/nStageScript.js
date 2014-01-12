@@ -62,11 +62,6 @@ $(document).ready( function() {
     
     player = new Negotiator();
     
-    rival = new Rival(10,10,10,10);
-    dispute = new Dispute(10,85,{money:100,experience:500},[new DisputeTopics('Test',85,32,{experience:50},0.75)]);
-    
-    
-    
-    negotiationGame.initiate(player,joe,dispute);
+    makeQuests();
     
 });

@@ -71,7 +71,7 @@ var makeRival = function() {
     output.valence = Math.round( Math.random()*10 );
     output.energy = Math.round( Math.random()*10 );
     output.composure = Math.round( Math.random()*25 );
-    output.amicability = Math.round( Math.random()*50 );
+    output.amicability = Math.round( Math.random()*125 )+25;
     return output;
 };
 

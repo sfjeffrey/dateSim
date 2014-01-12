@@ -41,6 +41,7 @@ negotiationGame.topicList = function() {
     }
     if (gameOver) {
         this.gameOver();
+        return;
     }
     stage.setChoices( choices, values, this.openTopic );
 };
@@ -48,8 +49,10 @@ negotiationGame.topicList = function() {
 //Opens the topic according to the JQ's data, and presents the opening offer
 negotiationGame.openTopic = function() {
     var topic = $(this).data('score');
-    negotiationGame.curTopic = negotiationGame.dispute.topics[topic];
-    negotiationGame.makeOffer(negotiationGame.dispute.topics[topic]);
+    topic = negotiationGame.dispute.topics[topic];
+    negotiationGame.curTopic = topic;
+    negotiationGame.makeOffer(topic);
+    $('.infoBox').html( topic.name+'<br>'+topic.objective );
 };
 
 //checks if the rival accepts the latest proposal
@@ -153,6 +156,8 @@ negotiationGame.gameOver = function(over) {
     $buttonBox.empty();
     $textBox.empty();
     stage.gameMessage('Negotiation Complete');
+    stage.addChoice('Continue','cont',function() { makeQuests();});
+    console.log('flank');
     var complete = true;
     for (var i in this.dispute.topics) {
         var t = this.dispute.topics[i];
@@ -165,10 +170,13 @@ negotiationGame.gameOver = function(over) {
         
     }
     if (complete) {
-        stage.gameMessage('For overall success in this negotiation you receive...');
         this.player.reward(this.dispute.reward);
+        stage.gameMessage('For overall success in this negotiation you receive...');
     }
-    stage.addChoice('Continue','cont',function() { makeQuests();});
+    else {
+        stage.gameMessage('You did not succeed in all the points.')
+    }
+    
 };
 
 negotiationGame.useSpecial = function(key) {
@@ -182,6 +190,7 @@ negotiationGame.takeBreak = function() {
     var bonus = (100 - this.rival.tolerance) * mod;
     this.rival.tolerance += bonus;
     this.breaks += 1;
+    $('.adviceBox').html( this.player.advisor.getAdvice(this.rival,this.curTopic) );
 };
 //Function for when the player makes a negotiation move.
 /*

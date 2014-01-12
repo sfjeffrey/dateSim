@@ -5,26 +5,31 @@ var Negotiator = function() {
     this.peaceRep = 0;
     this.dateRep = 0;
     this.sexRep = 0;
+    this.advisor = new Advisor();
     
     this.money = 0;
     this.experience = 0;
     
-    this.empathy     = 1;
-    this.reading     = 1;
-    this.discernment = 1;
+    this.empathy     = 2;
+    this.reading     = 2;
+    this.discernment = 2;
     
     this.socialMoves = {
         flatter     : [25,25],
+        compliment  : [10,10],
         placate     : [25,-25],
-        criticise   : [-25,25],
-        demoralize  : [-25,-25]
+        calm        : [10,-10],
+        insult      : [-25,25],
+        criticise   : [-10,10],
+        depress     : [-25,-25],
+        demoralize  : [-10,-10]
     };
     this.socialSpecials = {
         reason : function (n) {
             var a = Math.abs(n.rival.emotion[0] - (-50));
             var b = Math.abs(n.rival.emotion[1] - (-50));
             var c = Math.round(Math.sqrt( (a*a)+(b*b) ));
-            var mod = (1 - Math.round( (c/50)*100 )/100)/2;
+            var mod = (1 - Math.round( c)/100)/2;
             if (mod > 0) {
                 stage.gameMessage('The '+n.rival.name+' is seeing reason.');
             }
@@ -39,7 +44,7 @@ var Negotiator = function() {
             var a = Math.abs(n.rival.emotion[0] - 50);
             var b = Math.abs(n.rival.emotion[1] - 50);
             var c = Math.round(Math.sqrt( (a*a)+(b*b) ));
-            var mod = (1 - Math.round( (c/50)*100 )/100)/2;
+            var mod = (1 - Math.round(c)/100)/2;
             if (mod > 0) {
                 stage.gameMessage('The '+n.rival.name+' is swayed by your plea.');
             }
@@ -111,3 +116,8 @@ Negotiator.prototype.reward = function(reward) {
         stage.gameMessage(reward[i]+' '+i+' earned!');
     }
 };
+Negotiator.prototype.max = function() {
+    this.empathy = 10;
+    this.reading = 10;
+    this.discernment=10;
+}
