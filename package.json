@@ -1,0 +1,15 @@
+{
+  "name": "Negotiation Game",
+  "version": "0.0.1",
+  "description": "Negotiation mini-game",
+  "repository": "https://github.com/sfjeffrey/dateSim",
+  "dependencies": {
+    	"express": "2.5.x",
+		"now": "0.8.x",
+		"mailer": "0.6.x"
+  },
+  "engines": {
+    "node": "0.10.20",
+    "npm":  "1.2.30"
+  }
+}
