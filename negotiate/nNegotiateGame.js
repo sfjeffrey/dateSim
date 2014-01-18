@@ -85,7 +85,10 @@ negotiationGame.getPlayerMoves = function(dir,topic) {
     }
     else if (dir === 'negotiate') {
         for (var i in this.player.socialMoves) {
-            stage.addChoice(i,i,this.negotiate);
+            stage.addChoice(i,i,this.negotiate).mouseover(function(e) {
+                var string = player.socialMoves[$(this).data('score')].description;
+                stage.floatMessage(string,e);
+            });
         }
     }
     else if (dir === 'specials') {

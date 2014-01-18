@@ -15,14 +15,14 @@ var Negotiator = function() {
     this.discernment = 2;
     
     this.socialMoves = {
-        flatter     : [25,25],
-        compliment  : [10,10],
-        placate     : [25,-25],
-        calm        : [10,-10],
-        insult      : [-25,25],
-        criticise   : [-10,10],
-        depress     : [-25,-25],
-        demoralize  : [-10,-10]
+        flatter     : { score:[ 25, 25],description:'Raise arousal and valence a lot'},
+        compliment  : { score:[ 10, 10],description:'Raise arousal and valence a little'},
+        placate     : { score:[ 25,-25],description:'Lower arousal and raise valence a lot'},
+        calm        : { score:[ 10,-10],description:'Lower arousal and raise valence a little'},
+        insult      : { score:[-25, 25],description:'Raise arousal and lower valence a lot'},
+        criticise   : { score:[ 10,-10],description:'Raise arousal and lower valence a little'},
+        depress     : { score:[-25,-25],description:'Lower arousal and valence a lot'},
+        demoralize  : { score:[-10,-10],description:'Lower arousal and valence a little'},
     };
     this.socialSpecials = {
         reason : function (n) {
@@ -59,7 +59,7 @@ var Negotiator = function() {
 };
 
 Negotiator.prototype.speak = function(move) {
-    return this.socialMoves[move];
+    return this.socialMoves[move].score;
 };
 
 Negotiator.prototype.inspect = function(rival,dispute) {

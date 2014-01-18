@@ -23,6 +23,15 @@ var go = function() {
     player.empathy = 10;
 };
 
+stage.floatMessage = function(string,event) {
+    console.dir(event);
+    $floatBox.css( {
+        top : event.pageY,
+        left: event.pageX,
+        display:'block'
+    } ).html(string);
+}
+
 stage.gameMessage = function (string) {
     $textBox.prepend(string+'<br>');
 };
@@ -39,7 +48,7 @@ stage.addChoice = function(choices,values,func) {
     var i = values;
     $buttonBox.append('<div id="choice'+i+'" class="talkButton">'+choices+'</div>');
     $('#choice'+i).data('score',values).click(func);
-        
+    return $('#choice'+i);
 };
 
 stage.readDispute = function(dispute) {
@@ -59,6 +68,10 @@ stage.readDispute = function(dispute) {
 $(document).ready( function() {
     $textBox   = $('.textBox');
     $buttonBox = $('.buttonBox');
+    $floatBox  = $('.floatBox');
+    $floatBox.click(function() {
+        $floatBox.css('display','none');
+    });
     
     player = new Negotiator();
     
