@@ -9,7 +9,7 @@ var port = process.env.PORT || 3000;
 http.createServer(function(request, response) {
     var urlPath = request.url;
     if (urlPath === '/') {
-        urlPath = '/index.html';
+        urlPath = '/negotiate/nIndex.html';
     }
     var uri = url.parse(urlPath).pathname;
 
